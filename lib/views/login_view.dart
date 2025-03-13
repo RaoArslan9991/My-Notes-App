@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:first_app/constants/routes.dart';
 import 'package:first_app/firebase_options.dart';
+import 'package:first_app/utilities/show_error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as devtools show log;
 
@@ -64,30 +65,44 @@ class _LoginViewState extends State<LoginView> {
             ),
             TextButton(
               onPressed: () async{
+                
                 final email = _email.text;
                 final password = _password.text;
-
+                
                 try {
                   await FirebaseAuth.instance.signInWithEmailAndPassword(
                   email: email,
                   password: password
                 );
-                
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  notesRoute, 
-                  (route)=> false,
-                );
-                                
+                if(context.mounted){
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    notesRoute, 
+                    (route)=> false,
+                  );
+                }
                 }on FirebaseAuthException catch (e){
                   if(e.code == 'user-not-found'){
-                    devtools.log('user-not-found');
+                    // devtools.log('user-not-found');
+                    if(context.mounted){
+                      await showErrorDialog(context, 'user not found',);
+                    }
                   }else if (e.code == 'invalid-credential'){
-                    devtools.log('wrong password');
+                    // devtools.log('wrong password');
+                    if(context.mounted){
+                      await showErrorDialog(context, 'Invalid Credentials',);
+                    }
                     devtools.log(e.code);
-
+                  }else{
+                    if(context.mounted){
+                      await showErrorDialog(context, 'Error: ${e.code}',);
+                    }
                   }
                   
-                } 
+                } catch (e){
+                  if(context.mounted){
+                    await showErrorDialog(context, e.toString(),);
+                  }
+                }
                 // catch (e) {
                 //   print('something bad happened');
                 //   print(e.runtimeType);
