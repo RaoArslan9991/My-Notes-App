@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:first_app/constants/routes.dart';
 import 'package:first_app/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as devtools show log;
@@ -73,7 +74,7 @@ class _LoginViewState extends State<LoginView> {
                 );
                 
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/mynotes/', 
+                  notesRoute, 
                   (route)=> false,
                 );
                                 
@@ -99,7 +100,7 @@ class _LoginViewState extends State<LoginView> {
               TextButton(
                 onPressed: (){
                   Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/register/',
+                    registerRoute,
                     (route)=> false,
                     );
                 }, 
