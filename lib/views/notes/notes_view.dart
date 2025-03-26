@@ -13,13 +13,13 @@ class NotesView extends StatefulWidget {
 }
 
 class _NotesViewState extends State<NotesView> {
-  late final NotesServices _notesService;
+  late final NotesService _notesService;
 
   String get userEmail => AuthServices.firebase().currentUser!.email!;
   
   @override
   void initState() {
-    _notesService = NotesServices();
+    _notesService = NotesService();
     _notesService.open();
     super.initState();
   }
@@ -69,7 +69,7 @@ class _NotesViewState extends State<NotesView> {
           )
         ],
       ),
-      body: FutureBuilder(future: _notesService.createOrGetUser(email: userEmail), 
+      body: FutureBuilder(future: _notesService.getOrCreateUser(email: userEmail), 
       builder: (context, snapshot) {
         switch(snapshot.connectionState) {
           case ConnectionState.done:
@@ -77,6 +77,7 @@ class _NotesViewState extends State<NotesView> {
             builder: (context, snapshot) {
               switch(snapshot.connectionState) {
                 case ConnectionState.waiting:
+                case ConnectionState.active:
                   return const Text('waiting for all text');
                 default:
                   return const CircularProgressIndicator();
