@@ -91,7 +91,7 @@ class _LoginViewState extends State<LoginView> {
                   if(context.mounted){
                       await showErrorDialog(context, 'user not found',);
                     }
-                }on WrondPasswordAuthException{
+                }on WrongPasswordAuthException{
                   if(context.mounted){
                       await showErrorDialog(context, 'Invalid Credentials',);
                     }

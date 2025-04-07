@@ -1,18 +1,18 @@
-//loginView Exceptions
+// login exceptions
+class UserNotFoundAuthException implements Exception {}
 
-class UserNotFoundAuthException implements Exception{}
-//below is for invalid cresentials
-class WrondPasswordAuthException implements Exception{}
+class WrongPasswordAuthException implements Exception {}
 
+// register exceptions
 
-//registerView Exceptions
+class WeakPasswordAuthException implements Exception {}
 
-class WeakPasswordAuthException implements Exception{}
-class EmailAlreadyInUseAuthException implements Exception{}
-class InvalidEmailAuthException implements Exception{}
+class EmailAlreadyInUseAuthException implements Exception {}
 
-//Generic exceptions
+class InvalidEmailAuthException implements Exception {}
 
-class GenericAuthException implements Exception{}
-class UserNotLoggedInAuthException implements Exception{}
+// generic exceptions
 
+class GenericAuthException implements Exception {}
+
+class UserNotLoggedInAuthException implements Exception {}
