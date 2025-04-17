@@ -16,7 +16,9 @@ void main() {
   runApp(
     MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(appBarTheme: AppBarTheme(backgroundColor: Colors.grey)),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       home: BlocProvider<AuthBloc>(
         create: (context) => AuthBloc(FirebaseAuthProvider()),
         child: const HomePage(),
@@ -37,7 +39,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     context.read<AuthBloc>().add(const AuthEventInitialize());
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
@@ -52,6 +53,7 @@ class HomePage extends StatelessWidget {
             body: CircularProgressIndicator(),
           );
         }
-    },);
+      },
+    );
   }
 }

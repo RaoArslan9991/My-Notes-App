@@ -35,7 +35,7 @@ class _RegisterViewState extends State<RegisterView> {
         title: const Text("Register"),
       ),
       body: FutureBuilder(
-        future: AuthServices.firebase().initialize(),
+        future: AuthService.firebase().initialize(),
         builder: (context, snapshot) {
           switch(snapshot.connectionState) {
             case ConnectionState.done:
@@ -64,11 +64,11 @@ class _RegisterViewState extends State<RegisterView> {
                 final email = _email.text;
                 final password = _password.text;
                 try {
-                  await AuthServices.firebase().createUser(
+                  await AuthService.firebase().createUser(
                     email: email, 
                     password: password
                   );
-                await AuthServices.firebase().sendEmailVerification();
+                await AuthService.firebase().sendEmailVerification();
                 if(context.mounted){
                   Navigator.of(context).pushNamed(verifyEmailRoute);
                 }

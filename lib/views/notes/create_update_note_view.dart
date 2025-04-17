@@ -6,7 +6,7 @@ import 'package:first_app/services/cloud/cloud_note.dart';
 import 'package:first_app/services/cloud/firebase_cloud_storage.dart';
 import 'package:share_plus/share_plus.dart';
 class CreateUpdateNoteView extends StatefulWidget {
-  const CreateUpdateNoteView({Key? key}) : super(key: key);
+  const CreateUpdateNoteView({super.key});
 
   @override
   _CreateUpdateNoteViewState createState() => _CreateUpdateNoteViewState();
@@ -54,7 +54,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     if (existingNote != null) {
       return existingNote;
     }
-    final currentUser = AuthServices.firebase().currentUser!;
+    final currentUser = AuthService.firebase().currentUser!;
     final userId = currentUser.id;
     final newNote = await _notesService.createNewNote(ownerUserId: userId);
     _note = newNote;

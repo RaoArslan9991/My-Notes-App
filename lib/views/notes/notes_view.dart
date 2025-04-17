@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NotesView extends StatefulWidget {
-  const NotesView({Key? key}) : super(key: key);
+  const NotesView({super.key});
 
   @override
   _NotesViewState createState() => _NotesViewState();
@@ -19,7 +19,7 @@ class NotesView extends StatefulWidget {
 
 class _NotesViewState extends State<NotesView> {
   late final FirebaseCloudStorage _notesService;
-  String get userId => AuthServices.firebase().currentUser!.id;
+  String get userId => AuthService.firebase().currentUser!.id;
 
   @override
   void initState() {
@@ -39,26 +39,23 @@ class _NotesViewState extends State<NotesView> {
             },
             icon: const Icon(Icons.add),
           ),
-          PopupMenuButton<MenuActions>(
+          PopupMenuButton<MenuAction>(
             onSelected: (value) async {
               switch (value) {
-                case MenuActions.logout:
+                case MenuAction.logout:
+                  final authBloc = context.read<AuthBloc>();
                   final shouldLogout = await showLogOutDialog(context);
-                  if (shouldLogout) {
-                    context.read<AuthBloc>().add(
-                      const AuthEventLogOut(),
-                    );
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      loginRoute,
-                      (_) => false,
-                    );
+                  if (shouldLogout && mounted) {
+                    authBloc.add(
+                          const AuthEventLogOut(),
+                        );
                   }
               }
             },
             itemBuilder: (context) {
               return const [
-                PopupMenuItem<MenuActions>(
-                  value: MenuActions.logout,
+                PopupMenuItem<MenuAction>(
+                  value: MenuAction.logout,
                   child: Text('Log out'),
                 ),
               ];
@@ -93,7 +90,7 @@ class _NotesViewState extends State<NotesView> {
               return const CircularProgressIndicator();
           }
         },
-      )
+      ),
     );
   }
 }
