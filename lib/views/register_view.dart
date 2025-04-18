@@ -1,6 +1,4 @@
-import 'package:first_app/constants/routes.dart';
 import 'package:first_app/services/auth/auth_exceptions.dart';
-import 'package:first_app/services/auth/auth_services.dart';
 import 'package:first_app/services/auth/bloc/auth_bloc.dart';
 import 'package:first_app/services/auth/bloc/auth_event.dart';
 import 'package:first_app/services/auth/bloc/auth_state.dart';
@@ -9,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterView extends StatefulWidget {
-  const RegisterView({Key? key}) : super(key: key);
+  const RegisterView({super.key});
 
   @override
   _RegisterViewState createState() => _RegisterViewState();
